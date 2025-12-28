@@ -1,0 +1,19 @@
+# Запрещаем доступ к файлам напрямую
+<Files "videos.json">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Запрещаем листинг директорий
+Options -Indexes
+
+# Включаем перенаправление
+RewriteEngine On
+
+# Перенаправляем /video/ID на video.php?id=ID
+RewriteRule ^video/([a-zA-Z0-9_-]+)$ video.php?id=$1 [L,QSA]
+
+# Запрещаем доступ к папке uploads извне
+<FilesMatch "\.(mp4|webm|ogg|mov|avi|flv)$">
+    Deny from all
+</FilesMatch>
